@@ -41,11 +41,11 @@ push-to-dockerhub:
 
 deploy-aws:
     steps:
-    - edgecaseadmin/install-aws-cli:
-        key: $AWS_KEY_ID
-        secret: $AWS_KEY_SECRET
-        region: $AWS_REGION
-    - script:
-        name: "Push application build to S3"
-        code: |
-            aws s3 cp /pipeline/src/target/CounterWebApp.war   s3://console.aws.amazon.com/$AWS_S3_BUCKET_NAME/CounterWebApp.war
+        - edgecaseadmin/install-aws-cli:
+            key: $AWS_KEY_ID
+            secret: $AWS_KEY_SECRET
+            region: $AWS_REGION
+        - script:
+            name: "Push application build to S3"
+            code: |
+                aws s3 cp /pipeline/src/target/CounterWebApp.war   s3://console.aws.amazon.com/$AWS_S3_BUCKET_NAME/CounterWebApp.war
