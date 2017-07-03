@@ -39,7 +39,7 @@ push-to-dockerhub:
         repository: $DOCKER_REPOSITORY
         registry: $DOCKER_REGISTRY
 
-deploy:
+deploy-aws:
   steps:
   - darthtrevino/eb-deploy-s3:
       access-key: $AWS_KEY_ID
