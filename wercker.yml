@@ -11,7 +11,7 @@ dev:
                 export https_proxy=http://www-proxy.us.oracle.com:80
      - xenoterracide/maven:
         settings: settings.xml
-        goals: prepare-package
+        goals: package
 #        goals: test
        # A step that executes `gradle bootRun` command
      #- alianza/maven:
@@ -21,7 +21,7 @@ dev:
 build:
    steps:
       - xenoterracide/maven:
-         goals: prepare-package
+         goals: package
 
 maven-test:
    steps:
