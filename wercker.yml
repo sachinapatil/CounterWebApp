@@ -1,0 +1,20 @@
+# docker box definition
+box: maven:latest
+#
+# # defining the dev pipeline
+dev:
+   steps:
+     - script:
+           name: Exporting_proxy
+           code: |
+                export http_proxy=http://www-proxy.us.oracle.com:80
+                export https_proxy=http://www-proxy.us.oracle.com:80
+     - xenoterracide/maven:
+        settings: settings.xml
+        goals: prepare-package
+#        goals: test
+       # A step that executes `gradle bootRun` command
+     #- alianza/maven:
+#           goals: -Dmaven.test.failure.ignore=false package
+#     - install-packages:
+#        packages: maven:3.0.5
