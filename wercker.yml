@@ -48,4 +48,4 @@ deploy-aws:
         - script:
             name: "Push application build to S3"
             code: |
-                aws s3 cp /pipeline/src/target/CounterWebApp.war   s3://console.aws.amazon.com/$AWS_S3_BUCKET_NAME/CounterWebApp.war
+                aws s3 cp /pipeline/src/target/CounterWebApp.war   s3://$AWS_S3_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com/CounterWebApp.war
