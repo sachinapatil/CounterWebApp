@@ -49,6 +49,6 @@ deploy-aws:
       version-label: latest
       region: $AWS_REGION
       s3-bucket: $AWS_S3_BUCKET_NAME
-#      s3-key: <enter file name>
+      s3-key: $AWS_KEY_SECRET
 #  - script:
 #       name: Copy      
