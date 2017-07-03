@@ -44,9 +44,9 @@ deploy-aws:
   - darthtrevino/eb-deploy-s3:
       access-key: $AWS_KEY_ID
       secret-key: $AWS_KEY_SECRET
-      app-name: <enter app name>
+      app-name: CounterWebApp
       env-name: $ENVIRONMENT
-#      version-label: <enter version label>
+      version-label: latest
       region: $AWS_REGION
       s3-bucket: $AWS_S3_BUCKET_NAME
 #      s3-key: <enter file name>
