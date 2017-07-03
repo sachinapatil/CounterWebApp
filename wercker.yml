@@ -28,7 +28,8 @@ maven-test:
     - xenoterracide/maven:
         type: maven test
         goals: test
-push:
+
+push-to-dockerhub:
   steps:
     # Push to public docker repo
     - internal/docker-push:
