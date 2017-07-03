@@ -28,3 +28,12 @@ maven-test:
     - xenoterracide/maven:
         type: maven test
         goals: test
+push:
+  steps:
+    # Push to public docker repo
+    - internal/docker-push:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        tag: latest
+        repository: $DOCKER_REPOSITORY
+        cmd: java -jar  /pipeline/target/CounterWebApp.war
