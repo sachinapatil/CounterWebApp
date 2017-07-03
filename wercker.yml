@@ -50,7 +50,7 @@ push-to-dockerhub:
 #            code: |
 #                aws s3 cp /pipeline/src/target/CounterWebApp.war   s3://$AWS_S3_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com/CounterWebApp.war
 #
-aws-ecs:
+deploy-aws:
     - script:
       name: copy
       code: mkdir /app && cp /pipeline/source/target/CounterWebApp.war /app/
