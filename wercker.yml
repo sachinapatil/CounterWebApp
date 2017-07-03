@@ -19,12 +19,12 @@ dev:
 #     - install-packages:
 #        packages: maven:3.0.5
 build:
-   - step:
+   steps:
       - xenoterracide/maven:
          goals: prepare-package
 
 maven-test:
-   step:
+   steps:
     - xenoterracide/maven:
         type: maven test
         goals: test
