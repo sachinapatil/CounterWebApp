@@ -42,8 +42,8 @@ push-to-dockerhub:
 deploy-aws:
     steps:
         - edgecaseadmin/install-aws-cli:
-            key: $AWS_KEY_ID
-            secret: $AWS_KEY_SECRET
+            key: $AWS_KEY
+            secret: $AWS_SECRET
             region: $AWS_REGION
         - script:
             name: "Push application build to S3"
