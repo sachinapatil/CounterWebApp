@@ -42,6 +42,11 @@ push-to-dockerhub:
 deploy-aws:
   steps:
   - darthtrevino/eb-deploy-s3:
+     script:
+        name: Installing pip
+        code: |
+                yum install pip      
+  - darthtrevino/eb-deploy-s3:
       access-key: $AWS_KEY_ID
       secret-key: $AWS_KEY_SECRET
       app-name: CounterWebApp
