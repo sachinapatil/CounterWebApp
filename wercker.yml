@@ -31,11 +31,24 @@ maven-test:
 
 push-to-dockerhub:
   steps:
-    # Push to public docker repo
+    # Push to docker repo
     - internal/docker-push:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         tag: latest
         repository: $DOCKER_REPOSITORY
         registry: $DOCKER_REGISTRY
-#        cmd: java -jar  /pipeline/target/CounterWebApp.war
+
+deploy:
+  steps:
+  - darthtrevino/eb-deploy-s3:
+      access-key: $AWS_KEY_ID
+      secret-key: $AWS_KEY_SECRET
+      app-name: <enter app name>
+      env-name: $ENVIRONMENT
+#      version-label: <enter version label>
+      region: $AWS_REGION
+      s3-bucket: $AWS_S3_BUCKET_NAME
+#      s3-key: <enter file name>
+#  - script:
+#       name: Copy      
