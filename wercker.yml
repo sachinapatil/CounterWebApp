@@ -24,9 +24,7 @@ build:
          goals: prepare-package
 
 maven-test:
-   - step:
-     - xenoterracide/maven:
+   step:
+    - xenoterracide/maven:
         type: maven test
         goals: test
-
-
