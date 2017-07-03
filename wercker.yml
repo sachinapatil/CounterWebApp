@@ -18,3 +18,15 @@ dev:
 #           goals: -Dmaven.test.failure.ignore=false package
 #     - install-packages:
 #        packages: maven:3.0.5
+build:
+   - step:
+      - xenoterracide/maven:
+         goals: prepare-package
+
+maven-test:
+   - step:
+     - xenoterracide/maven:
+        type: maven test
+        goals: test
+
+
