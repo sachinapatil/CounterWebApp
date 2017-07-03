@@ -38,4 +38,4 @@ push-to-dockerhub:
         tag: latest
         repository: $DOCKER_REPOSITORY
         registry: $DOCKER_REGISTRY
-        cmd: java -jar  /pipeline/target/CounterWebApp.war
+#        cmd: java -jar  /pipeline/target/CounterWebApp.war
