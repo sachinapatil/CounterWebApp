@@ -40,20 +40,12 @@ push-to-dockerhub:
         registry: $DOCKER_REGISTRY
 
 deploy-aws:
-  steps:
-  - darthtrevino/eb-deploy-s3:
-     script:
-        name: Installing pip
+    steps:
+    - edgecaseadmin/install-aws-cli:
+        key: $AWS_KEY_ID
+        secret: $AWS_KEY_SECRET
+        region: $AWS_REGION
+    - script:
+        name: "Push application build to S3"
         code: |
-                yum install pip      
-  - darthtrevino/eb-deploy-s3:
-      access-key: $AWS_KEY_ID
-      secret-key: $AWS_KEY_SECRET
-      app-name: CounterWebApp
-      env-name: $ENVIRONMENT
-      version-label: latest
-      region: $AWS_REGION
-      s3-bucket: $AWS_S3_BUCKET_NAME
-      s3-key: $AWS_KEY_SECRET
-#  - script:
-#       name: Copy      
+            aws s3 cp /pipeline/src/target/CounterWebApp.war   s3://console.aws.amazon.com/$AWS_S3_BUCKET_NAME/CounterWebApp.war
