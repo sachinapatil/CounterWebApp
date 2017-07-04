@@ -29,15 +29,15 @@ maven-test:
         type: maven test
         goals: test
 
-push-to-dockerhub:
-  steps:
-    # Push to docker repo
-    - internal/docker-push:
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
-        tag: latest
-        repository: $DOCKER_REPOSITORY
-        registry: $DOCKER_REGISTRY
+#push-to-dockerhub:
+#  steps:
+#    # Push to docker repo
+#    - internal/docker-push:
+#        username: $DOCKER_USERNAME
+#        password: $DOCKER_PASSWORD
+#        tag: latest
+#        repository: $DOCKER_REPOSITORY
+#        registry: $DOCKER_REGISTRY
 
 deploy-rsync:
     - rsync-deploy:
