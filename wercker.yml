@@ -38,8 +38,8 @@ maven-test:
 #        tag: latest
 #        repository: $DOCKER_REPOSITORY
 #        registry: $DOCKER_REGISTRY
-
 deploy-rsync:
+   step:
     - rsync-deploy:
             host: 10.180.61.180
             homepath: /var/www
