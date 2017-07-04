@@ -38,7 +38,7 @@ maven-test:
 #        tag: latest
 #        repository: $DOCKER_REPOSITORY
 #        registry: $DOCKER_REGISTRY
-deploy-rsync:
+deploy:
    steps:
     - lejoe/rsync-deploy@2.12.0:
             host: 10.180.61.180
