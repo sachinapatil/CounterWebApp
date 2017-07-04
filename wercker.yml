@@ -42,8 +42,8 @@ deploy-rsync:
    steps:
     - lejoe/rsync-deploy@2.12.0:
             host: 10.180.61.180
-            homepath: /var/www
-            directory: CounterWebApp
+            homepath: /pipeline/source
+            directory: /var/www/CounterWebApp
             sshkey: $PRIVATE_KEY
             user: $SSH_USER
 
