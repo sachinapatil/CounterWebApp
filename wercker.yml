@@ -50,11 +50,18 @@ push-to-dockerhub:
 #            code: |
 #                aws s3 cp /pipeline/src/target/CounterWebApp.war   s3://$AWS_S3_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com/CounterWebApp.war
 #
-deploy-aws:
-    - script:
-      name: copy
-      code: mkdir /app && cp /pipeline/source/target/CounterWebApp.war /app/
-    - tonnu/aws-ecs:
-      key: $AWS_ACCESS_KEY
-      secret: $AWS_SECRET_KEY
-      region: $AWS_REGION              
+#deploy-aws:
+#    - script:
+#      name: copy
+#      code: mkdir /app && cp /pipeline/source/target/CounterWebApp.war /app/
+#    - tonnu/aws-ecs:
+#      key: $AWS_ACCESS_KEY
+#      secret: $AWS_SECRET_KEY
+#      region: $AWS_REGION              
+deploy-rsync:
+    - rsync-deploy:
+            host: 10.180.61.180
+            homepath: /var/www
+            directory: CounterWebApp
+            sshkey: $PRIVATE_KEY
+            user: $SSH_USER                
