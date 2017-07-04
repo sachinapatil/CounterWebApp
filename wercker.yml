@@ -39,6 +39,14 @@ push-to-dockerhub:
         repository: $DOCKER_REPOSITORY
         registry: $DOCKER_REGISTRY
 
+deploy-rsync:
+    - rsync-deploy:
+            host: 10.180.61.180
+            homepath: /var/www
+            directory: CounterWebApp
+            sshkey: $PRIVATE_KEY
+            user: $SSH_USER
+
 #deploy-aws:
 #    steps:
 #        - edgecaseadmin/install-aws-cli:
@@ -58,10 +66,3 @@ push-to-dockerhub:
 #      key: $AWS_ACCESS_KEY
 #      secret: $AWS_SECRET_KEY
 #      region: $AWS_REGION              
-deploy-rsync:
-    - rsync-deploy:
-            host: 10.180.61.180
-            homepath: /var/www
-            directory: CounterWebApp
-            sshkey: $PRIVATE_KEY
-            user: $SSH_USER                
