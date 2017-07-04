@@ -76,17 +76,17 @@ maven-test:
 #
 deploy:
   steps:
-#    - script:
-#           name: Exporting_proxy
+    - script:
+           name: Exporting_proxy
 #           code: |
 #                export http_proxy=http://www-proxy.us.oracle.com:80
 #                export https_proxy=http://www-proxy.us.oracle.com:80    
-    - install-packages:
-            packages: ssh    
-    - internal/shell:
-        cmd: /bin/bash 
-        code: |
-           scp -p22 -i -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /pipeline/source hghia@10.180.61.180:/var/www
+#    - install-packages:
+#            packages: ssh    
+#    - internal/shell:
+#           cmd: /bin/sh 
+           code: |
+                scp -p22 -ihghia_id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/CounterWebApp.war hghia@10.180.61.180:/var/www
 
 #    - script:        
 #           name: scp file to remote server
