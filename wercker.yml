@@ -1,7 +1,8 @@
 # docker box definition
-box: maven:3.5.0
+#box: maven:3.5.0
 # # defining the dev pipeline
 dev:
+   box: maven:3.5.0
    steps:
      - script:
            name: Exporting_proxy
@@ -13,11 +14,13 @@ dev:
         goals: package
 
 build:
+   box: maven:3.5.0
    steps:
       - xenoterracide/maven:
          goals: package
 
 maven-test:
+   box: maven:3.5.0
    steps:
     - xenoterracide/maven:
         type: maven test
@@ -40,6 +43,17 @@ maven-test:
 #           code: |
 #                scp -p22 -ihghia_id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/CounterWebApp.war hghia@10.180.61.180:/var/www
 #
+push-tomcat-to-docker":
+   box: tomcat:latest
+   steps:
+     - script:
+           name: copy war file
+           code: |            
+                mkdir /app
+                cp  $WERCKER_OUTPUT_DIR/target/CounterWebApp.war CounterWebApp.war
+                cmd CounterWebApp.war /app
+                cmd tail -f /dev/null
+                
 push-to-docker:
   steps:
     - internal/docker-push:
