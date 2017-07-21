@@ -43,7 +43,7 @@ maven-test:
 #           code: |
 #                scp -p22 -ihghia_id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/CounterWebApp.war hghia@10.180.61.180:/var/www
 #
-push-tomcat-to-docker":
+push-tomcat-to-docker:
    box: tomcat:latest
    steps:
      - script:
@@ -53,6 +53,14 @@ push-tomcat-to-docker":
                 cp  $WERCKER_OUTPUT_DIR/target/CounterWebApp.war CounterWebApp.war
                 cmd CounterWebApp.war /app
                 cmd tail -f /dev/null
+     - internal/docker-push:
+           username: $DOCKER_USERNAME
+           password: $DOCKER_PASSWORD
+           tag: prod-release-1.0.0
+           repository: sachinapatil/counterwebapp
+           registry: https://registry.hub.docker.com
+
+   
                 
 push-to-docker:
   steps:
