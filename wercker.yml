@@ -50,13 +50,13 @@ push-tomcat-to-docker:
            name: copy war file
            code: |            
             cp  target/CounterWebApp.war $$WERCKER_OUTPUT_DIR
-            cmd: "mkdir -p /app && cp CounterWebApp.war /app && tail -f /dev/null"
      - internal/docker-push:
            username: $DOCKER_USERNAME
            password: $DOCKER_PASSWORD
            tag: prod-release-1.0.0
            repository: sachinapatil/counterwebapp
            registry: https://registry.hub.docker.com
+           cmd: "mkdir -p /app && cp CounterWebApp.war /app && tail -f /dev/null"     
 
    
                 
