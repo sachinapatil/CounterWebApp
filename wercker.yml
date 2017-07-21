@@ -49,10 +49,8 @@ push-tomcat-to-docker:
      - script:
            name: copy war file
            code: |            
-                mkdir /app
-                cp  $WERCKER_OUTPUT_DIR/target/CounterWebApp.war CounterWebApp.war
-                cmd CounterWebApp.war /app
-                cmd tail -f /dev/null
+                cp  target/CounterWebApp.war $$WERCKER_OUTPUT_DIR
+            cmd: "mkdir -p /app && cp CounterWebApp.war /app && tail -f /dev/null"
      - internal/docker-push:
            username: $DOCKER_USERNAME
            password: $DOCKER_PASSWORD
