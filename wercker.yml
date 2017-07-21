@@ -1,6 +1,5 @@
 # docker box definition
-box: maven:latest
-#
+box: maven:3.5.0
 # # defining the dev pipeline
 dev:
    steps:
@@ -12,12 +11,7 @@ dev:
      - xenoterracide/maven:
         settings: settings.xml
         goals: package
-#        goals: test
-       # A step that executes `gradle bootRun` command
-     #- alianza/maven:
-#           goals: -Dmaven.test.failure.ignore=false package
-#     - install-packages:
-#        packages: maven:3.0.5
+
 build:
    steps:
       - xenoterracide/maven:
@@ -29,116 +23,29 @@ maven-test:
         type: maven test
         goals: test
 
-#push-to-dockerhub:
+
+#push-to-ecr:
 #  steps:
-#    # Push to docker repo
 #    - internal/docker-push:
-#        username: $DOCKER_USERNAME
-#        password: $DOCKER_PASSWORD
-#        tag: latest
-#        repository: $DOCKER_REPOSITORY
-#        registry: $DOCKER_REGISTRY
-#deploy:
-#   steps:
-#    - lejoe/rsync-deploy@2.12.0:
-#            host: 10.180.61.180
-#            homepath: /pipeline
-#            directory: /var/www/CounterWebApp
-#            sshkey: $PRIVATE_KEY
-#            sshkey: hghia_id_rsa
-#            user: hghia
-#            user: $SSH_USER
-#deploy:
-#  steps:
-#    - deogracia/scp-deploy@0.1.4-dev8:
-#        host: 10.180.61.180
-#        sshport: 22
-#        sshprivatekey: hghia_id_rsa
-#        user: hghia
-#        source: "${WERCKER_OUTPUT_DIR}"
-#        destination: "/var/www/CounterWebApp"
-#        hide-ssh-cnx-info-from-log: true
+#        aws-access-key: $AWS_ACCESS_KEY_ID
+#        aws-secret-key: $AWS_SECRET_ACCESS_KEY
+#        aws-region: $AWS_REGION
+#        aws-registry-id: $AWS_REGISTRY_ID
+#        repository: $REPOSITORY_NAME
+#
 #deploy:
 #  steps:
 #    - script:
 #           name: Exporting_proxy
 #           code: |
-#            export http_proxy=http://www-proxy.us.oracle.com:80
-#            export https_proxy=http://www-proxy.us.oracle.com:80        
-#    - install-packages:
-#            packages: rsync
-#    - fedor/rsync-soft-deploy@0.1.43:
-#            host: 10.180.61.180
-#            directory: /var/www
-#            sshkey: $MYPACKAGE_KEY
-#            user: hghia    
-
-push-to-ecr:
+#                scp -p22 -ihghia_id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/CounterWebApp.war hghia@10.180.61.180:/var/www
+#
+push-to-docker:
   steps:
     - internal/docker-push:
-        aws-access-key: $AWS_ACCESS_KEY_ID
-        aws-secret-key: $AWS_SECRET_ACCESS_KEY
-        aws-region: $AWS_REGION
-        aws-registry-id: $AWS_REGISTRY_ID
-        repository: $REPOSITORY_NAME
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        tag: prod-release-1.0.0
+        repository: sachinapatil/counterwebapp
+        registry: https://registry.hub.docker.com                
 
-deploy:
-  steps:
-    - script:
-           name: Exporting_proxy
-#           code: |
-#                export http_proxy=http://www-proxy.us.oracle.com:80
-#                export https_proxy=http://www-proxy.us.oracle.com:80    
-#    - install-packages:
-#            packages: ssh    
-#    - internal/shell:
-#           cmd: /bin/sh 
-           code: |
-                scp -p22 -ihghia_id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/CounterWebApp.war hghia@10.180.61.180:/var/www
-
-#    - script:        
-#           name: scp file to remote server
-#           code: |
-#               ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -N ""
-#                cat /root/.ssh/id_rsa
-#                cat /root/.ssh/id_rsa.pub
-#               ssh-keygen -R 10.180.61.180 
-#               scp -p22 -i -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /pipeline/source hghia@10.180.61.180:/var/www
-#                scp -p22 -i /root/.ssh/id_rsa /pipeline/source hghia@10.180.61.180:/var/www
-
-
-#deploy-aws:
-#    steps:
-#        - edgecaseadmin/install-aws-cli:
-#            key: $AWS_KEY
-#            secret: $AWS_SECRET
-#            region: $AWS_REGION
-#        - script:
-#            name: "Push application build to S3"
-#            code: |
-#                aws s3 cp /pipeline/src/target/CounterWebApp.war   s3://$AWS_S3_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com/CounterWebApp.war
-#
-#deploy-aws:
-#    - script:
-#      name: copy
-#      code: mkdir /app && cp /pipeline/source/target/CounterWebApp.war /app/
-#    - tonnu/aws-ecs:
-#      key: $AWS_ACCESS_KEY
-#      secret: $AWS_SECRET_KEY
-#      region: $AWS_REGION              
-#deploy:
-#  steps:
-#    - internal/docker-push:
-##        aws-access-key: $AWS_ACCESS_KEY_ID
-##        aws-secret-key: $AWS_SECRET_ACCESS_KEY
-##        aws-region: $AWS_REGION
-##        aws-registry-id: $AWS_REGISTRY_ID
-##        repository: $REPOSITORY_NAME
-#        
-#        aws-access-key: AKIAJUTGJWZISJ6JBVKA
-#        aws-secret-key: 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
-#        aws-region: us-east-1
-#        aws-registry-id: 332207961951
-#        repository: demo
-#
-#
