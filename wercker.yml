@@ -62,7 +62,7 @@ push-tomcat-to-docker:
 
    
                 
-push-to-docker:
+push-war-to-docker:
   steps:
     - internal/docker-push:
         username: $DOCKER_USERNAME
