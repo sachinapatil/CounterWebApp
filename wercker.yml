@@ -21,7 +21,7 @@ build:
          goals: package
       - script:
             name: copy artifacts
-            code: cp target/CounterWebApp.war $WERCKER_WAR
+            code: cp ./target/CounterWebApp.war $WERCKER_OUTPUT_DIR
 
 maven-test: 
   box: "maven:3.5.0"
