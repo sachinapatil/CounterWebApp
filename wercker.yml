@@ -42,12 +42,12 @@ maven-test:
 push-tomcat-to-docker: 
   box: "tomcat:7.0"
   steps: 
-    - internal/docker-scratch-push: 
+    - internal/docker-push:
+        repository: quay.io/repository/sachinpa/werckerkubernets
+        registry: "https://quay.io" 
         username: $QUAY_USERNAME
         password: $QUAY_PASSWORD
         tag: tomcat_$WERCKER_GIT_BRANCH-WERCKER_GIT_COMMIT
-        registry: "https://quay.io"
-        repository: quay.io/repository/sachinpa/werckerkubernets
 
 push-war-to-docker: 
   box: "busybox:latest"
@@ -58,11 +58,11 @@ push-war-to-docker:
             mkdir /app
             cp $WERCKER_ROOT/CounterWebApp.war /app    
         name: "copy war file"
-    - internal/docker-scratch-push: 
+    - internal/docker-push: 
+        repository: quay.io/repository/sachinpa/werckerkubernets
+        registry: "https://quay.io"
         username: $QUAY_USERNAME
         password: $QUAY_PASSWORD
-        registry: "https://quay.io"
-        repository: quay.io/repository/sachinpa/werckerkubernets
         tag: war-$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
         cmd: "cp CounterWebApp.wiar /app && tail -f /dev/null"
 
