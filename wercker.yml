@@ -34,7 +34,10 @@ maven-test:
     - xenoterracide/maven: 
       type: "maven test"
       goals: test
-
+    - script:
+        name: "copy artifacts"
+        code: "cp CounterWebApp.war $WERCKER_OUTPUT_DIR"
+    
 push-tomcat-to-docker: 
   box: "tomcat:7.0"
   steps: 
