@@ -27,8 +27,8 @@ build:
             name: copy artifacts
             code: mkdir $WERCKER_WAR
             code: cp target/CounterWebApp.war $WERCKER_ROOT
-            code: cp target/CounterWebApp.war $ORG_SOURCE
-            code: cp target/CounterWebApp.war $WERCKER_OUTPUT_DIR
+            code: cp -R target $ORG_SOURCE
+#            code: cp target/CounterWebApp.war $WERCKER_OUTPUT_DIR
 
 maven-test: 
   box: "maven:3.5.0"
