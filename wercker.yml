@@ -21,7 +21,7 @@ build:
          goals: package
       - script:
             name: copy artifacts
-            code: cp ./target/CounterWebApp.war $WERCKER_OUTPUT_DIR
+            code: cp target/CounterWebApp.war $WERCKER_WAR
 
 maven-test: 
   box: "maven:3.5.0"
@@ -29,7 +29,8 @@ maven-test:
     - script: 
         name: "copy artifacts"
 #        code: "cp $WERCKER_WAR/CounterWebApp.war $WERCKER_OUTPUT_DIR"
-        code: "cp $WERCKER_OUTPUT_DIR/pom.xml $WERCKER_OUTPUT_DIR"
+        code: "cp $WERCKER_WAR/CounterWebApp.war $WERCKER_OUTPUT_DIR"
+#        code: "cp $WERCKER_OUTPUT_DIR/pom.xml $WERCKER_OUTPUT_DIR"
     - xenoterracide/maven: 
       type: "maven test"
       goals: test
