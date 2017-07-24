@@ -62,7 +62,7 @@ push-war-to-docker:
         username: $QUAY_USERNAME
         password: $QUAY_PASSWORD
         registry: "https://quay.io"
-        repository: sachinapatil/counterwebapp
+        repository: repository/sachinpa/werckerkubernets
         tag: war-$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
         cmd: "cp CounterWebApp.wiar /app && tail -f /dev/null"
 
