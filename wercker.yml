@@ -13,13 +13,6 @@ dev:
         settings: settings.xml
         goals: package
 
-maven-test:
-   box: maven:3.5.0
-   steps:
-    - xenoterracide/maven:
-        type: maven test
-        goals: test
-
 build:
    box: maven:3.5.0
    steps:
@@ -29,22 +22,13 @@ build:
             name: copy artifacts
             code: cp target/CounterWebApp.war $WERCKER_OUTPUT_DIR
 
-#push-to-ecr:
-#  steps:
-#    - internal/docker-push:
-#        aws-access-key: $AWS_ACCESS_KEY_ID
-#        aws-secret-key: $AWS_SECRET_ACCESS_KEY
-#        aws-region: $AWS_REGION
-#        aws-registry-id: $AWS_REGISTRY_ID
-#        repository: $REPOSITORY_NAME
-#
-#deploy:
-#  steps:
-#    - script:
-#           name: Exporting_proxy
-#           code: |
-#                scp -p22 -ihghia_id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/CounterWebApp.war hghia@10.180.61.180:/var/www
-#
+maven-test:
+   box: maven:3.5.0
+   steps:
+    - xenoterracide/maven:
+        type: maven test
+        goals: test
+
 push-war-to-docker:
    box: busybox:latest
    steps:
