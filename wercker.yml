@@ -43,7 +43,7 @@ push-tomcat-to-docker:
   box: "tomcat:7.0"
   steps: 
     - internal/docker-push:
-        repository: quay.io/repository/sachinpa/werckerkubernets
+        repository: quay.io/sachinpa/werckerkubernets
         registry: "https://quay.io" 
         username: $QUAY_USERNAME
         password: $QUAY_PASSWORD
@@ -59,7 +59,7 @@ push-war-to-docker:
             cp $WERCKER_ROOT/CounterWebApp.war /app    
         name: "copy war file"
     - internal/docker-push: 
-        repository: quay.io/repository/sachinpa/werckerkubernets
+        repository: quay.io/sachinpa/werckerkubernets
         registry: "https://quay.io"
         username: $QUAY_USERNAME
         password: $QUAY_PASSWORD
