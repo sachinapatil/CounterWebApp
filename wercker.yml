@@ -1,34 +1,39 @@
 # docker box definition
 #box: maven:3.5.0
 # # defining the dev pipeline
-build: 
+
+dev:
   box: "maven:3.5.0"
-  steps: 
-    - xenoterracide/maven: 
-        goals: package
-    - script: 
-        code: "cp pom.xml $WERCKER_OUTPUT_DIR"
-        name: "copy artifacts"
-dev: 
-  box: "maven:3.5.0"
-  steps: 
-    - script: 
+  steps:
+    - script:
         code: |
             export http_proxy=http://www-proxy.us.oracle.com:80
             export https_proxy=http://www-proxy.us.oracle.com:80
         name: Exporting_proxy
-    - xenoterracide/maven: 
+    - xenoterracide/maven:
         goals: package
         settings: settings.xml
+
+build:
+   box: maven:3.5.0
+   steps:
+      - xenoterracide/maven:
+         goals: package
+      - script:
+            name: copy artifacts
+            code: cp target/CounterWebApp.war $WERCKER_OUTPUT_DIR
+            code: cp pom.xml $WERCKER_OUTPUT_DIR
+
 maven-test: 
   box: "maven:3.5.0"
   steps: 
     - script: 
-        code: "cp pom.xml $WERCKER_OUTPUT_DIR"
         name: "copy artifacts"
+        code: "cp CounterWebApp.war $WERCKER_OUTPUT_DIR"
+        code: "cp pom.xml $WERCKER_OUTPUT_DIR"
     - xenoterracide/maven: 
-      goals: test
       type: "maven test"
+      goals: test
 
 push-tomcat-to-docker: 
   box: "tomcat:7.0"
@@ -39,6 +44,7 @@ push-tomcat-to-docker:
         repository: sachinapatil/counterwebapp
         tag: prod-release-1.0.0
         username: $DOCKER_USERNAME
+
 push-war-to-docker: 
   box: "busybox:latest"
   steps: 
