@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: javaweb
+spec:
+      imagePullSecrets:
+      - name: quay-readonly
+      containers:
+      - name: war
+        image: quay.io/wercker/wercker-kubernetes-quay:tomcat_$WERCKER_GIT_BRANCH-WERCKER_GIT_COMMIT
+volumeMounts:
+      - mountPath: /app
+        name: app-volume
+containers:
+      - name: tomcat
+        image: quay.io/wercker/wercker-kubernetes-quay:war_$WERCKER_GIT_BRANCH-WERCKER_GIT_COMMIT
+command: ["sh","-c","/usr/local/tomcat/bin/startup.sh"]
+volumeMounts:
+      - mountPath: /usr/local/tomcat/webapps
+        name: app-volume
+ports:
+      - containerPort: 8080
+        hostPort: 8001
+volumes:
+      - name: app-volume
+        emptyDir: {}

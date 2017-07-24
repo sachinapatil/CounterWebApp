@@ -42,12 +42,12 @@ maven-test:
 push-tomcat-to-docker: 
   box: "tomcat:7.0"
   steps: 
-    - internal/docker-push: 
-        password: $DOCKER_PASSWORD
-        username: $DOCKER_USERNAME
-        registry: "https://registry.hub.docker.com"
-        repository: sachinapatil/counterwebapp
-        tag: prod-release-1.0.0
+    - internal/docker-scratch-push: 
+        username: $QUAY_USERNAME
+        password: $QUAY_PASSWORD
+        tag: tomcat_$WERCKER_GIT_BRANCH-WERCKER_GIT_COMMIT
+        registry: "https://quay.io"
+        repository: repository/sachinpa/werckerkubernets
 
 push-war-to-docker: 
   box: "busybox:latest"
@@ -59,9 +59,28 @@ push-war-to-docker:
             cp $WERCKER_ROOT/CounterWebApp.war /app    
         name: "copy war file"
     - internal/docker-push: 
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
+        username: $QUAY_USERNAME
+        password: $QUAY_PASSWORD
         registry: "https://registry.hub.docker.com"
         repository: sachinapatil/counterwebapp
-        tag: war-container-1.0.0
-        cmd: "cp CounterWebApp.war /app && tail -f /dev/null"
+        tag: war-$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+        cmd: "cp CounterWebApp.wiar /app && tail -f /dev/null"
+
+deploy-kube:
+  steps:
+    - bash-template:
+        cwd: deployment
+
+    - script:
+        name: Copy kubernetes files
+        cwd: $WERCKER_OUTPUT_DIR
+        code: |
+          cp $WERCKER_ROOT/javaweb2.yaml $WERCKER_OUTPUT_DIR
+          
+    - kubectl:
+        name: deploy to kubernetes
+        cwd: $WERCKER_OUTPUT_DIR
+        server: $AWS_ACCESS_KEY_ID
+        token: $AWS_SECRET_ACCESS_KEY
+        insecure-skip-tls-verify: true
+        command: apply -f javaweb2.yaml
