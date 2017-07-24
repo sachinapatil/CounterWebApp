@@ -29,7 +29,7 @@ maven-test:
     - script: 
         name: "copy artifacts"
 #        code: "cp $WERCKER_WAR/CounterWebApp.war $WERCKER_OUTPUT_DIR"
-        code: "cp ./pom.xml $WERCKER_OUTPUT_DIR"
+        code: "cp $WERCKER_SOURCE_DIR/pom.xml $WERCKER_OUTPUT_DIR"
     - xenoterracide/maven: 
       type: "maven test"
       goals: test
@@ -49,6 +49,7 @@ push-war-to-docker:
   steps: 
     - script: 
         code: |
+            find . -type f -name CounterWebApp.war    
             mkdir /app
             cp  ./target/CounterWebApp.war /app
         name: "copy war file"
