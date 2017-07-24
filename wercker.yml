@@ -44,10 +44,10 @@ push-tomcat-to-docker:
   steps: 
     - internal/docker-push: 
         password: $DOCKER_PASSWORD
+        username: $DOCKER_USERNAME
         registry: "https://registry.hub.docker.com"
         repository: sachinapatil/counterwebapp
         tag: prod-release-1.0.0
-        username: $DOCKER_USERNAME
 
 push-war-to-docker: 
   box: "busybox:latest"
@@ -59,9 +59,9 @@ push-war-to-docker:
             cp $WERCKER_ROOT/CounterWebApp.war /app    
         name: "copy war file"
     - internal/docker-push: 
-        cmd: "cp CounterWebApp.war /app && tail -f /dev/null"
+        username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         registry: "https://registry.hub.docker.com"
         repository: sachinapatil/counterwebapp
         tag: war-container-1.0.0
-        username: $DOCKER_USERNAME
+        cmd: "cp CounterWebApp.war /app && tail -f /dev/null"
