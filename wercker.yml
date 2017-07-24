@@ -33,10 +33,10 @@ build:
 maven-test: 
   box: "maven:3.5.0"
   steps: 
-#    - script: 
-#        name: "copy artifacts"
+    - script: 
+        name: "Change directory"
 #        code: "cp $WERCKER_WAR/CounterWebApp.war $WERCKER_OUTPUT_DIR"
-#        code: cd $WERCKER_SOURCE_DIR
+        code: cd $WERCKER_SOURCE_DIR
 #        code: "cp $WERCKER_OUTPUT_DIR/pom.xml $WERCKER_OUTPUT_DIR"
     - xenoterracide/maven: 
       type: "maven test"
