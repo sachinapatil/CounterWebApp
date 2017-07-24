@@ -21,15 +21,15 @@ build:
          goals: package
       - script:
             name: copy artifacts
-            code: cp target/CounterWebApp.war $WERCKER_ROOT
+            code: cp target/CounterWebApp.war $WERCKER_WAR
 
 maven-test: 
   box: "maven:3.5.0"
   steps: 
     - script: 
         name: "copy artifacts"
-        code: "cp $WERCKER_ROOT/CounterWebApp.war $WERCKER_OUTPUT_DIR"
-        code: "cp $WERCKER_ROOT/pom.xml $WERCKER_OUTPUT_DIR"
+        code: "cp $WERCKER_WAR/CounterWebApp.war $WERCKER_OUTPUT_DIR"
+        code: "cp $WERCKER_WAR/pom.xml $WERCKER_OUTPUT_DIR"
     - xenoterracide/maven: 
       type: "maven test"
       goals: test
@@ -50,7 +50,7 @@ push-war-to-docker:
     - script: 
         code: |
             mkdir /app
-            cp  $WERCKER_ROOT/CounterWebApp.war /app
+            cp  $WERCKER_WAR/CounterWebApp.war /app
         name: "copy war file"
     - internal/docker-push: 
         cmd: "cp CounterWebApp.war /app && tail -f /dev/null"
