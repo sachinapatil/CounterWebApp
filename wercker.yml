@@ -59,6 +59,8 @@ push-war-to-docker:
             find . -type f -name CounterWebApp.war    
             mkdir /app
             cp  $WERCKER_WAR/CounterWebApp.war /app    
+            cp  $WERCKER_SOURCE_DIR/CounterWebApp.war /app
+            cp $ORG_SOURCE/CounterWebApp.war /app    
 #            cp  $WERCKER_ROOT/CounterWebApp.war /app
 #            cp  ./target/CounterWebApp.war /app
         name: "copy war file"
