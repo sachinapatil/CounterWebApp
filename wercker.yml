@@ -4,42 +4,36 @@
 build: 
   box: "maven:3.5.0"
   steps: 
-    - 
-      xenoterracide/maven: 
+    - xenoterracide/maven: 
         goals: package
-    - 
-      script: 
+    - script: 
         code: "cp pom.xml $WERCKER_OUTPUT_DIR"
         name: "copy artifacts"
 dev: 
   box: "maven:3.5.0"
   steps: 
-    - 
-      script: 
+    - script: 
         code: |
             export http_proxy=http://www-proxy.us.oracle.com:80
             export https_proxy=http://www-proxy.us.oracle.com:80
         name: Exporting_proxy
-    - 
-      xenoterracide/maven: 
+    - xenoterracide/maven: 
         goals: package
         settings: settings.xml
 maven-test: 
   box: "maven:3.5.0"
   steps: 
-    - 
-      script: 
+    - script: 
         code: "cp pom.xml $WERCKER_OUTPUT_DIR"
         name: "copy artifacts"
-    - 
+    - xenoterracide/maven: 
       goals: test
       type: "maven test"
-      xenoterracide/maven: ~
+
 push-tomcat-to-docker: 
   box: "tomcat:7.0"
   steps: 
-    - 
-      internal/docker-push: 
+    - internal/docker-push: 
         password: $DOCKER_PASSWORD
         registry: "https://registry.hub.docker.com"
         repository: sachinapatil/counterwebapp
@@ -48,14 +42,12 @@ push-tomcat-to-docker:
 push-war-to-docker: 
   box: "busybox:latest"
   steps: 
-    - 
-      script: 
+    - script: 
         code: |
             mkdir /app
             cp  $WERCKER_OUTPUT_DIR/CounterWebApp.war /app
         name: "copy war file"
-    - 
-      internal/docker-push: 
+    - internal/docker-push: 
         cmd: "cp CounterWebApp.war /app && tail -f /dev/null"
         password: $DOCKER_PASSWORD
         registry: "https://registry.hub.docker.com"
