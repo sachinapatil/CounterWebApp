@@ -76,7 +76,7 @@ deploy-kube:
         name: Copy kubernetes files
         cwd: $WERCKER_OUTPUT_DIR
         code: |
-          cp $WERCKER_ROOT/javaweb2.yaml $WERCKER_OUTPUT_DIR
+          cp $WERCKER_SOURCE_DIR/javaweb2.yaml $WERCKER_OUTPUT_DIR
           
     - kubectl:
         name: deploy to kubernetes
