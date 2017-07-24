@@ -1,7 +1,6 @@
 # docker box definition
 #box: maven:3.5.0
 # # defining the dev pipeline 1
-
 dev:
   box: "maven:3.5.0"
   steps:
@@ -32,14 +31,12 @@ maven-test:
         name: "Copy pom.xml"
         code: cp $WERCKER_ROOT/pom.xml $WERCKER_OUTPUT_DIR       
         code: cp $WERCKER_ROOT/CounterWebApp.war $WERCKER_OUTPUT_DIR
-        code: cp $WERCKER_ROOT/javaweb2.yaml $WERCKER_OUTPUT_DIR
     - xenoterracide/maven: 
       type: "maven test"
       goals: test
     - script:
           name: copy artifact to output
           copy: cp $WERCKER_OUTPUT_DIR/CounterWebApp.war $WERCKER_ROOT
-#          copy: cp $WERCKER_OUTPUT_DIR/javaweb2.yaml $WERCKER_ROOT
     
 push-tomcat-to-docker: 
   box: "tomcat:7.0"
@@ -73,7 +70,7 @@ deploy-kube:
   steps:
     - script:
         name: "Copy javaweb2.yaml"
-        code: cp $WERCKER_ROOT/javaweb2.yaml $WERCKER_OUTPUT_DIR
+        code: cp $WERCKER_GIT_REPOSITORY/javaweb2.yaml $WERCKER_OUTPUT_DIR
           
     - kubectl:
         name: deploy to kubernetes
