@@ -37,6 +37,7 @@ maven-test:
     - script:
           name: copy artifact to output
           copy: cp $WERCKER_OUTPUT_DIR/CounterWebApp.war $WERCKER_ROOT
+          copy: cp $WERCKER_OUTPUT_DIR/javaweb2.yaml $WERCKER_ROOT
     
 push-tomcat-to-docker: 
   box: "tomcat:7.0"
