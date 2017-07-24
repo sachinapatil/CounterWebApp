@@ -47,7 +47,7 @@ push-tomcat-to-docker:
         registry: "https://quay.io" 
         username: $QUAY_USERNAME
         password: $QUAY_PASSWORD
-        tag: tomcat_$WERCKER_GIT_BRANCH-WERCKER_GIT_COMMIT
+        tag: tomcat_$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
 
 push-war-to-docker: 
   box: "busybox:latest"
