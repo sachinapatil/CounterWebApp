@@ -17,15 +17,10 @@ dev:
 build:
    box: maven:3.5.0
    steps:
-      - script:
-            name: provide chance for deployment
-            code: |
-             export ORG_SOURCE=$WERCKER_SOURCE_DIR  
       - xenoterracide/maven:
          goals: package
       - script:
             name: copy artifacts
-            code: mkdir $WERCKER_WAR
             code: cp target/CounterWebApp.war $WERCKER_OUTPUT_DIR
             code: cp -R target $WERCKER_OUTPUT_DIR
 #            code: cp target/CounterWebApp.war $WERCKER_OUTPUT_DIR
