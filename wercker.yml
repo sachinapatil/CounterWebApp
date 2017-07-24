@@ -70,7 +70,7 @@ deploy-kube:
   steps:
     - script:
         name: "Copy javaweb2.yaml"
-        code: cp $WERCKER_SOURCE_DIR/javaweb2.yaml $WERCKER_OUTPUT_DIR
+        code: cp $WERCKER_OUTPUT_DIR/javaweb2.yaml $WERCKER_OUTPUT_DIR
           
     - kubectl:
         name: deploy to kubernetes
