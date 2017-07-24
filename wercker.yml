@@ -36,8 +36,8 @@ maven-test:
     - script: 
         name: "Change directory"
 #        code: "cp $WERCKER_WAR/CounterWebApp.war $WERCKER_OUTPUT_DIR"
-        code: cd $WERCKER_SOURCE_DIR
-        code: "cp $WERCKER_SOURCE_DIR/pom.xml $WERCKER_OUTPUT_DIR"
+#        code: cd $WERCKER_SOURCE_DIR
+         code: cp $WERCKER_ROOT/pom.xml $WERCKER_OUTPUT_DIR       
     - xenoterracide/maven: 
       type: "maven test"
       goals: test
