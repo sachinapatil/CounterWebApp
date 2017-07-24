@@ -47,7 +47,7 @@ push-tomcat-to-docker:
         password: $QUAY_PASSWORD
         tag: tomcat_$WERCKER_GIT_BRANCH-WERCKER_GIT_COMMIT
         registry: "https://quay.io"
-        repository: repository/sachinpa/werckerkubernets
+        repository: quay.io/repository/sachinpa/werckerkubernets
 
 push-war-to-docker: 
   box: "busybox:latest"
@@ -62,7 +62,7 @@ push-war-to-docker:
         username: $QUAY_USERNAME
         password: $QUAY_PASSWORD
         registry: "https://quay.io"
-        repository: repository/sachinpa/werckerkubernets
+        repository: quay.io/repository/sachinpa/werckerkubernets
         tag: war-$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
         cmd: "cp CounterWebApp.wiar /app && tail -f /dev/null"
 
