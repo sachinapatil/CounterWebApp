@@ -22,7 +22,6 @@ build:
       - script:
             name: copy artifacts
             code: cp target/CounterWebApp.war $WERCKER_ROOT
-            code: cp pom.xml $WERCKER_ROOT
 
 maven-test: 
   box: "maven:3.5.0"
