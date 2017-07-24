@@ -69,14 +69,9 @@ push-war-to-docker:
 deploy-kube:
   box: "busybox:latest"
   steps:
-    - bash-template:
-        cwd: $WERCKER_OUTPUT_DIR
-
     - script:
-        name: Copy kubernetes files
-        cwd: $WERCKER_OUTPUT_DIR
-        code: |
-          cp $WERCKER_SOURCE_DIR/javaweb2.yaml $WERCKER_OUTPUT_DIR
+        name: "Copy javaweb2.yaml"
+        code: cp $WERCKER_SOURCE_DIR/javaweb2.yaml $WERCKER_OUTPUT_DIR
           
     - kubectl:
         name: deploy to kubernetes
