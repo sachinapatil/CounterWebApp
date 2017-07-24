@@ -26,6 +26,10 @@ build:
 maven-test:
    box: maven:3.5.0
    steps:
+     - script:
+            name: copy artifacts
+            code: cp CounterWebApp.war $WERCKER_OUTPUT_DIR
+            code: cp pom.xml $WERCKER_OUTPUT_DIR
     - xenoterracide/maven:
         type: maven test
         goals: test
