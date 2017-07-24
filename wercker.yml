@@ -21,6 +21,7 @@ build:
          goals: package
       - script:
             name: copy artifacts
+            code: mkdir $WERCKER_WAR
             code: cp target/CounterWebApp.war $WERCKER_ROOT
             code: cp target/CounterWebApp.war $WERCKER_WAR
 
