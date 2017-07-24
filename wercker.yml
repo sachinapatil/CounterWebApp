@@ -67,6 +67,7 @@ push-war-to-docker:
         cmd: "cp CounterWebApp.wiar /app && tail -f /dev/null"
 
 deploy-kube:
+  box: "busybox:latest"
   steps:
     - bash-template:
         cwd: deployment
