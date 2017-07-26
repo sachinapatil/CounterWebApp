@@ -56,7 +56,7 @@ push-war-to-docker:
         code: |
             find . -type f -name CounterWebApp.war    
             mkdir /app
-            cp $WERCKER_ROOT/CounterWebApp.war /app    
+            cp $WERCKER_SOURCE_DIR/CounterWebApp.war /app    
         name: "copy war file"
     - internal/docker-push: 
         repository: quay.io/sachinpa/werckerkubernets
@@ -71,12 +71,12 @@ deploy-kube:
   steps:
     - script:
         name: "Copy javaweb2.yaml"
-        code: cp $WERCKER_OUTPUT_DIR/javaweb2.yaml $WERCKER_OUTPUT_DIR
+        code: cp javaweb2.yaml $WERCKER_OUTPUT_DIR
           
     - kubectl:
         name: deploy to kubernetes
-        cwd: $WERCKER_OUTPUT_DIR
         server: $AWS_ACCESS_KEY_ID
         token: $AWS_SECRET_ACCESS_KEY
+        cwd: $WERCKER_OUTPUT_DIR
         insecure-skip-tls-verify: true
         command: apply -f javaweb2.yaml
