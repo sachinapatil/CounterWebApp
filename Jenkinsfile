@@ -19,7 +19,7 @@ pipeline {
     			protocol: 'http',
     			nexusUrl: 'http://10.180.84.255:9081',
     			groupId: 'com.mkyong',
-    			version: 1.0-SNAPSHOT,
+    			version: '1.0-SNAPSHOT',
     			repository: 'maven-snapshots',
     			credentialsId: 'Mum_Nexus_server',
     			artifacts: [
