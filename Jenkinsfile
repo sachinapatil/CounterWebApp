@@ -15,7 +15,7 @@ pipeline {
     agent any
     tools {
         maven 'jenkins_maven'
-        jdk 'JAVA_1.8'
+//        jdk 'JAVA_1.8'
     }
     stages {
         stage ('Checkout'){
