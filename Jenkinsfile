@@ -1,15 +1,8 @@
 pipeline {
     agent any
  	parameters {
-	def myChoices = "DEV\nDelphix"
- 	properties([
-   	parameters([
-      	choice(choices: myChoices, description: 'Please select an environment', name: 'Environment'),
-      	string(description: 'Please enter your Name', name: 'User'),
-      	string(description: 'Please enter the reason for deployment', name: 'Message')
-   	])
-	])
-	}
+        booleanParam(defaultValue: true, description: '', name: 'userFlag')
+    }
     tools {
         maven 'jenkins_maven'
         jdk 'JAVA_1.8'
