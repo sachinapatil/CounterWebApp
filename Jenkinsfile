@@ -23,7 +23,7 @@ pipeline {
     			repository: 'maven-snapshots',
     			credentialsId: 'Mum_Nexus_server',
     			artifacts: [
-        		[artifactId: CounterWebApp,
+        		[artifactId: 'CounterWebApp',
          		classifier: '',
          		file: 'target/CounterWebApp.war',
          		type: 'war']
