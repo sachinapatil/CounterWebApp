@@ -14,7 +14,7 @@
 pipeline {
     agent any
     tools {
-        maven 'maven3'
+        maven 'jenkins_maven'
     }
     stages {
         stage ('Checkout'){
