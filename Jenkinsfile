@@ -1,6 +1,5 @@
 pipeline {
-	currentBuild.result = "SUCCESS"
-	try {
+
     agent any
  	parameters {
         string(defaultValue: "TEST", description: 'What environment?', name: 'userFlag')
@@ -45,18 +44,4 @@ pipeline {
 		
 		
     }
-
-    }
-    catch (err) {
-
-        currentBuild.result = "FAILURE"
-
-            mail body: "project build error is here: ${env.BUILD_URL}" ,
-            from: 'devopstraining@devops.com',
-            replyTo: 'sachin.a.patil@oracle.com',
-            subject: 'project build failed',
-            to: 'sachin.a.patil@oracle.com'
-
-        throw err
-    }		
 }
