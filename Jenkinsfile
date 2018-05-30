@@ -16,10 +16,10 @@ pipeline {
     tools {
         maven 'maven3'
     }
-    stage ('Checkout'){
+    stages {
+        stage ('Checkout'){
         checkout scm
    	    }
-    stages {
         stage('Build') {
             steps {
                 sh 'mvn clean package'
