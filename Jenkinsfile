@@ -1,16 +1,3 @@
-//node {   
-//     tools { 
-//        maven 'Maven 3.3.9' 
-//        jdk 'jdk8' 
-//    }
-//   stage ('Checkout'){
-//        checkout scm
-//    	    }
-//    stage ('Build'){
-//        sh "D:/\app/\apache-maven-3.5.0\bin\mvn clean package"
-//        //sh 'D\:\app\apache-maven-3.5.0\bin\mvn clean package'
-//    }
-//}
 pipeline {
     agent any
     tools {
@@ -28,5 +15,25 @@ pipeline {
                 sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://127.0.0.1:9000/ -DproxySet=true -DproxyHost=www-proxy.us.oracle.com -DproxyPort=80'
             }
         }
+		stage ('ArtifactUpload'){
+            steps {
+            nexusArtifactUploader(
+    nexusVersion: 'nexus3',
+    protocol: 'http',
+    nexusUrl: 'http://10.180.84.255:9081',
+    groupId: 'com.mkyong',
+    version: 1.0-SNAPSHOT,
+    repository: 'maven-snapshots',
+    credentialsId: 'CredentialsId',
+    artifacts: [
+        [artifactId: CounterWebApp,
+         classifier: '',
+         file: 'target/CounterWebApp.war',
+         type: 'war']
+    ]
+ )
+            }
+   	    }
+		
     }
 }
