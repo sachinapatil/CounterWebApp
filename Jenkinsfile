@@ -17,7 +17,7 @@ pipeline {
 		   	nexusArtifactUploader(
     			nexusVersion: 'nexus3',
     			protocol: 'http',
-    			nexusUrl: 'http://10.180.84.255:9081',
+    			nexusUrl: '10.180.84.255:9081',
     			groupId: 'com.mkyong',
     			version: '1.0-SNAPSHOT',
     			repository: 'maven-snapshots',
