@@ -17,6 +17,8 @@ pipeline {
    	    }
         stage('Build') {
             steps {
+	       sh "echo ${params.userFlag}"
+	       sh "echo ${params.region}"    
                sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://127.0.0.1:9000/ -DproxySet=true -DproxyHost=www-proxy.us.oracle.com -DproxyPort=80'
 		  //sh 'mvn clean package -DproxySet=true -DproxyHost=www-proxy.us.oracle.com -DproxyPort=80'
 		   	nexusArtifactUploader(
