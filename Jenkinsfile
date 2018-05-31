@@ -14,7 +14,7 @@ pipeline {
         stage ('Checkout'){
             steps {
             checkout scm
-			currentBuild.result = 'SUCCESS'
+			
             }
    	    }
         stage('Build') {
@@ -38,11 +38,18 @@ pipeline {
          		type: 'war']
     			]
  		)
-           currentBuild.result = 'SUCCESS' 
+           
    	    }
             
         }
 		
+		stage ('success'){
+            steps {
+                script {
+                    currentBuild.result = 'SUCCESS'
+                }
+            }
+        }
 		
     }
 	post {
