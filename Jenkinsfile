@@ -62,7 +62,7 @@ pipeline {
         always {
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: true,
-                recipients: ${params.EmailRecipient},
+                recipients: "${params.EmailRecipient}",
                 sendToIndividuals: true])
         }
     }
