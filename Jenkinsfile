@@ -14,6 +14,7 @@ pipeline {
         stage ('Checkout'){
             steps {
             checkout scm
+			currentBuild.result = 'SUCCESS'
             }
    	    }
         stage('Build') {
@@ -37,11 +38,25 @@ pipeline {
          		type: 'war']
     			]
  		)
-            
+           currentBuild.result = 'SUCCESS' 
    	    }
             
         }
 		
 		
+    }
+	post {
+        failure {
+            script {
+                currentBuild.result = 'FAILURE'
+            }
+        }
+
+        always {
+            step([$class: 'Mailer',
+                notifyEveryUnstableBuild: true,
+                recipients: "sachin.a.patil@oracle.com",
+                sendToIndividuals: true])
+        }
     }
 }
