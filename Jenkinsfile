@@ -2,7 +2,7 @@ pipeline {
 
     agent any
  	parameters {
-        string(defaultValue: "TEST", description: 'What environment?', name: 'userFlag')
+        string(defaultValue: "sachin.a.patil@oracle.com", description: 'What environment?', name: 'EmailRecipient')
         // choices are newline separated
         choice(choices: 'US-EAST-1\nUS-WEST-2', description: 'What AWS region?', name: 'region')
     }
@@ -19,7 +19,7 @@ pipeline {
    	    }
         stage('Build') {
             steps {
-	       sh "echo ${params.userFlag}"
+	       sh "echo ${params.EmailRecipient}"
 	       sh "echo ${params.region}"    
                sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://127.0.0.1:9000/ -DproxySet=true -DproxyHost=www-proxy.us.oracle.com -DproxyPort=80'
 		  //sh 'mvn clean package -DproxySet=true -DproxyHost=www-proxy.us.oracle.com -DproxyPort=80'
@@ -62,7 +62,7 @@ pipeline {
         always {
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: true,
-                recipients: "sachin.a.patil@oracle.com",
+                recipients: ${params.EmailRecipient},
                 sendToIndividuals: true])
         }
     }
